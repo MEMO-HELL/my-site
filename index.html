@@ -1,437 +1,241 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christmas 2026 - Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
-    <!-- في <head> كل ملف -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tajawal:wght@400;500;700&family=Amiri&family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Background Decorations -->
+  <div id="snowfall"></div>
+  <div id="confetti-container"></div>
+  <div id="bg-decorations"></div>
 
-        body {
-            font-family: 'Dancing Script', cursive;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a0033 0%, #330066 25%, #4d0099 50%, #6600cc 75%, #7f00ff 100%);
-            position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 20px;
-        }
-
-        .stars {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .snow-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .snowflake {
-            position: absolute;
-            top: -50px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.5em;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        .lights-container {
-            position: fixed;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .light {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            animation: glow 1.5s infinite alternate;
-        }
-
-        .light:nth-child(1) { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
-        .light:nth-child(2) { background: #00ff00; box-shadow: 0 0 20px #00ff00; animation-delay: 0.3s; }
-        .light:nth-child(3) { background: #0000ff; box-shadow: 0 0 20px #0000ff; animation-delay: 0.6s; }
-        .light:nth-child(4) { background: #ffff00; box-shadow: 0 0 20px #ffff00; animation-delay: 0.9s; }
-        .light:nth-child(5) { background: #ff00ff; box-shadow: 0 0 20px #ff00ff; animation-delay: 1.2s; }
-
-        @keyframes glow {
-            0% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .music-notes {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .note {
-            position: absolute;
-            font-size: 2em;
-            animation: floatNote 8s ease-in-out infinite;
-            opacity: 0;
-        }
-
-        @keyframes floatNote {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(0deg);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) rotate(360deg);
-            }
-        }
-
-        .login-box {
-            position: relative;
-            z-index: 5;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 60px 50px;
-            border-radius: 40px;
-            box-shadow: 0 30px 80px rgba(127, 0, 255, 0.5);
-            max-width: 600px;
-            width: 100%;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: slideIn 0.8s ease-out;
-            text-align: center;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .year-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff0080, #7f00ff);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1.4em;
-            font-weight: bold;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(127, 0, 255, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .christmas-emoji {
-            font-size: 5em;
-            margin-bottom: 25px;
-            animation: rotate3d 3s ease-in-out infinite;
-        }
-
-        @keyframes rotate3d {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(-10deg) scale(1.1); }
-            75% { transform: rotate(10deg) scale(1.1); }
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5em;
-            background: linear-gradient(135deg, #ff0080, #7f00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            font: 3.2em;
-            
-            color: #6600cc;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .password-input {
-            width: 100%;
-            padding: 20px;
-            font-size: 1.3em;
-            border: 3px solid rgba(127, 0, 255, 0.3);
-            border-radius: 50px;
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .password-input:focus {
-            outline: none;
-            border-color: #7f00ff;
-            box-shadow: 0 0 20px rgba(127, 0, 255, 0.5);
-            background: white;
-        }
-
-        .password-input::placeholder {
-            color: #999;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 20px;
-            font-size: 1.4em;
-            font-family: 'Pacifico', cursive;
-            background: linear-gradient(135deg, #ff0080, #7f00ff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(127, 0, 255, 0.5);
-            font-weight: bold;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(127, 0, 255, 0.7);
-        }
-
-        .login-btn:active {
-            transform: translateY(-2px);
-        }
-
-        .error-msg {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff0000;
-            padding: 15px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .emoji-row {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 2.2em;
-        }
-
-        .emoji-row span {
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        .emoji-row span:nth-child(1) { animation-delay: 0s; }
-        .emoji-row span:nth-child(2) { animation-delay: 0.2s; }
-        .emoji-row span:nth-child(3) { animation-delay: 0.4s; }
-        .emoji-row span:nth-child(4) { animation-delay: 0.6s; }
-        .emoji-row span:nth-child(5) { animation-delay: 0.8s; }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @media (max-width: 768px) {
-            body { padding: 30px 15px; }
-            .login-box { padding: 40px 30px; }
-            h1 { font-size: 2.5em; }
-            .subtitle { font-size: 1.1em; }
-            .login-btn { font-size: 1.2em; padding: 18px; }
-            .password-input { font-size: 1.1em; padding: 18px; }
-        }
-    </style>
-</head>
-<body>
-   
-  
-   
-    <div class="stars" id="starsContainer"></div>
-
-    <div class="lights-container">
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
+  <!-- Password Page -->
+  <div id="password-page" class="page active">
+    <!-- Cute Balloons -->
+    <div class="balloon top-left" style="animation-delay: 0s;">
+      <div class="balloon-body lavender"><div class="balloon-shine"></div><div class="balloon-knot"></div></div>
+      <svg class="balloon-string" width="20" height="60"><path d="M10 0 Q5 20 10 30 Q15 40 10 60" fill="none" stroke="rgba(200,180,220,0.6)" stroke-width="1"/></svg>
+    </div>
+    <div class="balloon top-right" style="animation-delay: 0.5s;">
+      <div class="balloon-body mauve"><div class="balloon-shine"></div><div class="balloon-knot"></div></div>
+      <svg class="balloon-string" width="20" height="60"><path d="M10 0 Q5 20 10 30 Q15 40 10 60" fill="none" stroke="rgba(200,180,220,0.6)" stroke-width="1"/></svg>
+    </div>
+    <div class="balloon bottom-left" style="animation-delay: 1s;">
+      <div class="balloon-body beige"><div class="balloon-shine"></div><div class="balloon-knot"></div></div>
+      <svg class="balloon-string" width="20" height="60"><path d="M10 0 Q5 20 10 30 Q15 40 10 60" fill="none" stroke="rgba(200,180,220,0.6)" stroke-width="1"/></svg>
+    </div>
+    <div class="balloon bottom-right" style="animation-delay: 1.5s;">
+      <div class="balloon-body rose"><div class="balloon-shine"></div><div class="balloon-knot"></div></div>
+      <svg class="balloon-string" width="20" height="60"><path d="M10 0 Q5 20 10 30 Q15 40 10 60" fill="none" stroke="rgba(200,180,220,0.6)" stroke-width="1"/></svg>
     </div>
 
-    <div class="snow-container" id="snowContainer"></div>
-    
-    <div class="music-notes" id="musicNotes"></div>
+    <div class="card">
+      <span class="corner-deco top-left">✨</span>
+      <span class="corner-deco top-right">🌙</span>
+      <span class="corner-deco bottom-left">💜</span>
+      <span class="corner-deco bottom-right">⭐</span>
+      
+      <div class="lights-container">
+        <div class="light lavender"></div>
+        <div class="light mauve" style="animation-delay: 0.2s;"></div>
+        <div class="light beige" style="animation-delay: 0.4s;"></div>
+        <div class="light rose" style="animation-delay: 0.6s;"></div>
+        <div class="light lavender" style="animation-delay: 0.8s;"></div>
+        <div class="light mauve" style="animation-delay: 1s;"></div>
+        <div class="light beige" style="animation-delay: 1.2s;"></div>
+      </div>
 
-    <div class="login-box">
-        <div class="year-tag">2026</div>
-        
-        <div class="christmas-emoji">🎄</div>
-        
-        <h1>Christmas </h1>
-        <p class="subtitle">enter password</p>
-
-        <form action="/login" method="POST">
-            <div class="input-group">
-                <input 
-                    type="password" 
-                    name="password"
-                    placeholder="Password" 
-                    required
-                    class="password-input"
-                    autocomplete="off"
-                >
-            </div>
-
-            
-
-            <button type="submit" class="login-btn">
-                 unlock🔓
-            </button>
-        </form>
-
-        <div class="emoji-row">
-            <span>🎄</span>
-            <span>🎁</span>
-            <span>🎅</span>
-            <span>💝</span>
-            <span>⛄</span>
+      <div class="countdown">
+        <p class="countdown-title">🎄 Christmas Countdown 🎄</p>
+        <div class="countdown-boxes">
+          <div class="countdown-box"><span id="days">00</span><small>D</small></div>
+          <div class="countdown-box"><span id="hours">00</span><small>H</small></div>
+          <div class="countdown-box"><span id="minutes">00</span><small>M</small></div>
+          <div class="countdown-box"><span id="seconds">00</span><small>S</small></div>
         </div>
+      </div>
+
+      <h2 class="title">✨ Enter Password ✨</h2>
+      <input type="password" id="password-input" class="input" placeholder="Enter your secret...">
+      <p id="error-msg" class="error hidden">Wrong password! Try again 💜</p>
+      <button id="unlock-btn" class="btn">🔓 Unlock</button>
+    </div>
+  </div>
+
+  <!-- Letter Page - Tree -->
+  <div id="letter-page" class="page">
+    <div id="tree-section">
+      <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--beige); margin-bottom: 1.5rem; text-shadow: 0 0 20px hsla(35,45%,85%,0.5);">✨ اضغط على الشجرة ✨</p>
+      
+      <div class="tree-container" id="christmas-tree">
+        <div class="tree">
+          <div class="tree-star">⭐</div>
+          <div class="tree-layer tree-layer-1"></div>
+          <div class="tree-layer tree-layer-2"></div>
+          <div class="tree-layer tree-layer-3"></div>
+          <div class="tree-trunk"></div>
+          <!-- Ornaments with soft colors -->
+          <div class="tree-ornament" style="background: var(--rose); color: var(--rose); top: 30px; left: 35px;"></div>
+          <div class="tree-ornament" style="background: var(--beige); color: var(--beige); top: 45px; right: 40px;"></div>
+          <div class="tree-ornament" style="background: var(--lavender); color: var(--lavender); top: 70px; left: 25px;"></div>
+          <div class="tree-ornament" style="background: var(--mauve); color: var(--mauve); top: 85px; right: 30px;"></div>
+          <div class="tree-ornament" style="background: var(--soft-purple); color: var(--soft-purple); top: 110px; left: 45px;"></div>
+          <div class="tree-ornament" style="background: var(--rose); color: var(--rose); top: 125px; right: 50px;"></div>
+        </div>
+      </div>
+      
+      <p class="click-hint">💜 اضغط لفتح الرسالة 💜</p>
     </div>
 
-    <script>
-    
-
-        // وظيفة بسيطة لتشغيل الصوت وإخفاء الطبقة
-        function startMusic() {
-            audio.play();
-            tapOverlay.style.transition = 'opacity 0.5s ease';
-            tapOverlay.style.opacity = '0';
-            setTimeout(() => {
-                tapOverlay.style.display = 'none';
-            }, 500);
-        }
-
-        // عند الضغط على الطبقة
-        tapOverlay.addEventListener('click', startMusic);
-        tapOverlay.addEventListener('touchstart', startMusic);
-
-        // النجوم
-        const starsContainer = document.getElementById('starsContainer');
-        for (let i = 0; i < 200; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
-
-        // الثلج
-        const snowContainer = document.getElementById('snowContainer');
-        const snowflakes = ['❄️', '❅', '❆'];
+    <div id="letter-section" class="hidden">
+      <div class="card" style="max-width: 600px;">
+        <span class="corner-deco top-left">💜</span>
+        <span class="corner-deco top-right">✨</span>
+        <span class="corner-deco bottom-left">⭐</span>
+        <span class="corner-deco bottom-right">🌙</span>
         
-        for (let i = 0; i < 50; i++) {
-            const snow = document.createElement('div');
-            snow.className = 'snowflake';
-            snow.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-            snow.style.left = Math.random() * 100 + '%';
-            snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            snow.style.animationDelay = Math.random() * 5 + 's';
-            snow.style.fontSize = (Math.random() * 1 + 0.8) + 'em';
-            snowContainer.appendChild(snow);
-        }
+        <div class="lights-container">
+          <div class="light lavender"></div>
+          <div class="light mauve" style="animation-delay: 0.15s;"></div>
+          <div class="light beige" style="animation-delay: 0.3s;"></div>
+          <div class="light rose" style="animation-delay: 0.45s;"></div>
+          <div class="light lavender" style="animation-delay: 0.6s;"></div>
+          <div class="light mauve" style="animation-delay: 0.75s;"></div>
+          <div class="light beige" style="animation-delay: 0.9s;"></div>
+          <div class="light rose" style="animation-delay: 1.05s;"></div>
+          <div class="light lavender" style="animation-delay: 1.2s;"></div>
+        </div>
 
-        // النوتات الموسيقية
-        const musicNotes = document.getElementById('musicNotes');
-        const notes = ['🔔', '🎄', '⛄', '🎁', '🎅'];
+        <p class="letter-text">
+          <br><br>
+          انا عمري ما حبيت حد زي ما حبيتك ولا كان في دماغي الحب ومكانش في حساباتي اني احب بصراحة بس أما شوفتك وعرفتك لقيت نفسي بحبك من غير ما أفكر مرة ولا اتنين اكتر حاجة مهمة في حياتي هي انتي مش فارق معايا حد في الدنيا غيرك وجودك كلامك نظرتك ليا بس هو ده اللي فارق معايا غير كدا مفيش حاجة في الدنيا تهمني ومستعد اخسر اي حاجة في الدنيا بس تبقي وتفضلي موجودة معايا انتي وحشتيني كل حاجة بينا وحشتني صوتك ضحكتك كل حاجة بتفاصيلها وحشتني اتمني متزعليش مني على اي حاجة عملتها واتمني الأيام الجاية نرجع  زي الأول وأحسن انا عاوز أصلح كل حاجة وحشة عملتها انتي دايما البيت والأمان بالنسبة لي وكل لحظة جمبك بتساوي الدنيا بالنسبة لي انا بحبك وعمري ما حبيت قبلك ولا هيبقي في بعدك❤
         
-        function createNote() {
-            const note = document.createElement('div');
-            note.className = 'note';
-            note.textContent = notes[Math.floor(Math.random() * notes.length)];
-            note.style.left = Math.random() * 100 + '%';
-            note.style.animationDuration = (Math.random() * 5 + 8) + 's';
-            note.style.animationDelay = Math.random() * 3 + 's';
-            note.style.color = `hsl(${Math.random() * 60 + 280}, 80%, 70%)`;
-            musicNotes.appendChild(note);
-            
-            setTimeout(() => {
-                note.remove();
-            }, 12000);
-        }
+        </p>
 
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => createNote(), i * 1000);
-        }
-        
-        setInterval(() => {
-            createNote();
-        }, 2000);
-    </script>
-</body>
-</html>
+        <div class="heart-counter">
+          <p style="color: hsla(35,40%,90%,0.6); font-size: 0.9rem; margin-bottom: 0.5rem;">💜 اضغط على القلب 💜</p>
+          <button class="heart-btn" id="heart-btn">💜</button>
+          <p class="heart-count"><span id="heart-count">0</span> Hearts</p>
+        </div>
+
+        <button class="btn" onclick="navigateTo('memories-page')">Next ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Memories Page -->
+  <div id="memories-page" class="page">
+    <h1 class="memories-title">✨ Our Memories ✨</h1>
+
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/Ki-lHWnHv8E" title="Our Song" allowfullscreen></iframe>
+    </div>
+
+    <div class="carousel">
+      <img id="carousel-img" src="" alt="Memory">
+    </div>
+
+    <div class="carousel-dots" id="carousel-dots"></div>
+
+    <div class="love-timer" id="love-timer"></div>
+
+    <div class="love-message-box">
+      <p class="love-message" id="love-message">💜 أنتِ أجمل شيء حصل في حياتي 💜</p>
+    </div>
+
+    <!-- Section Divider -->
+    <div class="section-divider">
+      <span>✨</span>
+      <span>💜</span>
+      <span>⭐</span>
+      <span>💜</span>
+      <span>✨</span>
+    </div>
+
+    <!-- Cute Quote -->
+    <div class="quote-section">
+      <p class="quote-text">الحب هو إنك تلاقي بيتك في قلب حد تاني</p>
+    </div>
+
+    <!-- Fun Facts Bubbles -->
+    <div class="facts-section">
+      <div class="fact-bubble">
+        <span class="fact-icon"></span>
+        <span class="fact-text">قلبي اختارك</span>
+      </div>
+      <div class="fact-bubble">
+        <span class="fact-icon"></span>
+        <span class="fact-text">كل سنة وإحنا سوا</span>
+      </div>
+      <div class="fact-bubble">
+        <span class="fact-icon"></span>
+        <span class="fact-text">دايمًا جنبك</span>
+      </div>
+      <div class="fact-bubble">
+        <span class="fact-icon"></span>
+        <span class="fact-text">بيتي في قلبك</span>
+      </div>
+    </div>
+
+    <!-- Wishes Section -->
+    <div class="wishes-section">
+      <h3 class="wishes-title">💜 أمنياتي ليكي 💜</h3>
+      <div class="wish-item" style="animation-delay: 0.1s;">
+        <span class="wish-icon">💫</span>
+        <span class="wish-text">تفضلي دايمًا مبسوطة ومرتاحة</span>
+      </div>
+      <div class="wish-item" style="animation-delay: 0.2s;">
+        <span class="wish-icon">🌟</span>
+        <span class="wish-text">تحققي كل أحلامك وأهدافك</span>
+      </div>
+      <div class="wish-item" style="animation-delay: 0.3s;">
+        <span class="wish-icon">🎄</span>
+        <span class="wish-text">نقضي كل كريسماس مع بعض</span>
+      </div>
+      <div class="wish-item" style="animation-delay: 0.4s;">
+        <span class="wish-icon">💜</span>
+        <span class="wish-text">حبنا يفضل قوي ويكبر كل يوم</span>
+      </div>
+      <div class="wish-item" style="animation-delay: 0.5s;">
+        <span class="wish-icon">🌸</span>
+        <span class="wish-text">نفضل سند لبعض طول العمر</span>
+      </div>
+    </div>
+
+    <!-- Promise Cards -->
+    <div class="promises-section">
+      <div class="promise-card">
+        <div class="promise-icon">👥</div>
+        <p class="promise-text">هفضل جنبك دايمًا</p>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">👸🏻</div>
+        <p class="promise-text">هسندك في كل وقت</p>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">😊</div>
+        <p class="promise-text">هخليكي مبسوطة</p>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">🏠</div>
+        <p class="promise-text">هبني معاكي بيتنا</p>
+      </div>
+    </div>
+
+    <button class="btn" onclick="navigateTo('ending-page')">Next ✨</button>
+  </div>
+
+  <!-- Ending Page -->
+  <div id="ending-page" class="page">
+    <h1 class="ending-title" id="ending-title" style="opacity: 0;">💜 ميراج حبيبتي 💜</h1>
+    <p class="ending-text" id="ending-text-1" style="opacity: 0;">مهما الدنيا ودتنا فين...</p>
+    <p class="ending-text" id="ending-text-2" style="opacity: 0;">هتفضلي إنتي أغلى حد عندي،</p>
+    <p class="ending-text" id="ending-text-3" style="opacity: 0;">أماني وبيتي اللي برتاح فيه 💜</p>
+
+    <div class="christmas-message" id="christmas-msg" style="opacity: 0;">
+      <p>✨ Merry Christmas, My Love ✨</p>
+    </div>
+
+    <button class="btn btn-gold" id="replay-btn" style="opacity: 0; max-width: 200px;" onclick="replay()">🔄 agaim</button>
+
+    <p class="designer-text" id="designer-text" style="opacity: 0;">💜 Designed with love by Loly 💜</p>
+
+  </div>
